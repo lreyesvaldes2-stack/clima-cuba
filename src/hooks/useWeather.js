@@ -36,6 +36,8 @@ export function useWeather() {
           'weather_code',
           'precipitation_probability',
           'wind_speed_10m',
+          'is_day',     // Necesario para iconos de noche
+          'uv_index',   // Necesario para el UV real de la hora actual
         ].join(','),
         daily: [
           'weather_code',
@@ -84,6 +86,8 @@ export function useWeather() {
         weather_code: data.hourly.weather_code.slice(safeStart, endIdx),
         precipitation_probability: data.hourly.precipitation_probability.slice(safeStart, endIdx),
         wind_speed_10m: data.hourly.wind_speed_10m.slice(safeStart, endIdx),
+        is_day: data.hourly.is_day.slice(safeStart, endIdx),
+        uv_index: data.hourly.uv_index.slice(safeStart, endIdx),
       };
 
       setWeather({

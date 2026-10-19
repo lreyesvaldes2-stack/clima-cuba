@@ -1,5 +1,5 @@
 // src/components/HourlyForecast.jsx
-import { getWeatherInfo } from '../utils/weatherCodes';
+import { getWeatherInfo, getWeatherIcon } from '../utils/weatherCodes';
 import { formatTempValue } from '../utils/units';
 
 export default function HourlyForecast({ hourly, tempUnit }) {
@@ -22,6 +22,7 @@ export default function HourlyForecast({ hourly, tempUnit }) {
       <div className="flex gap-3 overflow-x-auto pb-3 -mx-2 px-2 scrollbar-thin">
         {hourly.time.map((time, i) => {
           const info = getWeatherInfo(hourly.weather_code[i]);
+          const hourIcon = getWeatherIcon(hourly.weather_code[i], hourly.is_day[i] === 1);
           const isNow = i === 0;
           return (
             <div
@@ -36,7 +37,7 @@ export default function HourlyForecast({ hourly, tempUnit }) {
                              ${isNow ? 'text-sky-700 dark:text-sky-300' : 'text-slate-500 dark:text-slate-400'}`}>
                 {formatHour(time, i)}
               </p>
-              <div className="text-2xl mb-2">{info.icon}</div>
+              <div className="text-2xl mb-2">{hourIcon}</div>
               <p className="text-slate-900 dark:text-slate-100 font-bold text-sm tabular-nums">
                 {formatTempValue(hourly.temperature_2m[i], tempUnit)}°
               </p>

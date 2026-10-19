@@ -1,5 +1,5 @@
 // src/components/WeatherCard.jsx
-import { getWeatherInfo, getWindDirection } from '../utils/weatherCodes';
+import { getWeatherInfo, getWeatherIcon, getWindDirection } from '../utils/weatherCodes';
 import { formatTempValue, formatWind } from '../utils/units';
 
 export default function WeatherCard({
@@ -13,6 +13,7 @@ export default function WeatherCard({
 }) {
   const current = weather.current;
   const info = getWeatherInfo(current.weather_code);
+  const currentIcon = getWeatherIcon(current.weather_code, current.is_day === 1);
 
   const details = [
     { label: 'Sensación térmica', value: `${formatTempValue(current.apparent_temperature, tempUnit)}°${tempUnit}` },
@@ -71,7 +72,7 @@ export default function WeatherCard({
             </div>
             <p className="text-white/90 text-xl mt-1 font-medium">{info.description}</p>
           </div>
-          <div className="text-7xl md:text-8xl drop-shadow-lg">{info.icon}</div>
+          <div className="text-7xl md:text-8xl drop-shadow-lg">{currentIcon}</div>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">

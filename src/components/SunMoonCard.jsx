@@ -6,7 +6,10 @@ import { getUVInfo } from '../utils/uvIndex';
 export default function SunMoonCard({ weather }) {
   const sunrise = weather.daily.sunrise?.[0];
   const sunset = weather.daily.sunset?.[0];
-  const uv = weather.daily.uv_index_max?.[0];
+  
+  // ✅ CORREGIDO: Usamos el índice UV de la hora actual (posición 0 del array horario)
+  // en lugar del máximo diario (weather.daily.uv_index_max).
+  const uv = weather.hourly?.uv_index?.[0];
 
   const moon = useMemo(() => getMoonPhase(new Date()), []);
   const uvInfo = getUVInfo(uv);
